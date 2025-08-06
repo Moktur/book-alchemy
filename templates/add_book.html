@@ -5,35 +5,44 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>Add Book</title>
+  <link rel="stylesheet" href="{{ url_for('static', filename='schneider_cpc.css') }}">
 </head>
 
 <body>
-  {% with messages = get_flashed_messages() %}
-  {% if messages %}
-  <ul>
-    {% for message in messages %}
-    <li style="color:green;">{{ message }}</li>
-    {% endfor %}
-  </ul>
-  {% endif %}
-  {% endwith %}
+  <div class="window">
+    <div class="title-bar">Add Book</div>
+    <div class="content">
 
-  <form action="/add_book" method="POST">
-    <label for="title">Book title:</label>
-    <input type="text" id="title" name="title" required><br><br>
+      {% with messages = get_flashed_messages() %}
+      {% if messages %}
+      <ul>
+        {% for message in messages %}
+        <li>{{ message }}</li>
+        {% endfor %}
+      </ul>
+      {% endif %}
+      {% endwith %}
 
-    <label for="publication_year">Publication Year:</label>
-    <input type="number" id="publication_year" name="publication_year" required><br><br>
+      <form action="/add_book" method="POST">
+        <label for="title">Book title:</label>
+        <input type="text" id="title" name="title" required><br><br>
 
-    <label for="author_id">Author:</label>
-    <select id="author_id" name="author_id" required>
-      {% for author in authors %}
-      <option value="{{ author.id }}">{{ author.name }}</option>
-      {% endfor %}
-    </select><br><br>
+        <label for="publication_year">Publication Year:</label>
+        <input type="number" id="publication_year" name="publication_year" required><br><br>
 
-    <input type="submit" value="Add Book">
-  </form>
+        <label for="author_id">Author:</label>
+        <select id="author_id" name="author_id" required>
+          {% for author in authors %}
+          <option value="{{ author.id }}">{{ author.name }}</option>
+          {% endfor %}
+        </select><br><br>
+
+        <input type="submit" value="Add Book">
+      </form>
+
+    </div>
+  </div>
 </body>
 
 </html>
