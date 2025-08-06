@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+</head>
+
+<body>
+
+  <h2>Library</h2>
+
+  <!-- Sorting Links -->
+  <p>Sort by:
+    <a href="/?sort=title">Title</a> |
+    <a href="/?sort=author">Author</a>
+  </p>
+
+  <!-- Book List -->
+  {% for book in books %}
+  <div>
+    <h3>{{ book.title }}</h3>
+    <p>Author: {{ book.author.name }}</p>
+  </div>
+  {% endfor %}
+
+</body>
+
+</html>
