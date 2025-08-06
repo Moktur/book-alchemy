@@ -1,5 +1,4 @@
 from flask import Flask, render_template, request, redirect, url_for, flash
-from flask_sqlalchemy import SQLAlchemy
 import os
 from data_models import db, Author, Book
 from datetime import datetime
@@ -8,7 +7,8 @@ from sqlalchemy import or_
 app = Flask(__name__)
 
 basedir = os.path.abspath(os.path.dirname(__file__))
-app.config['SQLALCHEMY_DATABASE_URI'] = f"sqlite:///{os.path.join(basedir,'data/library.sqlite')}"
+app.config['SQLALCHEMY_DATABASE_URI'] = \
+    f"sqlite:///{os.path.join(basedir,'data/library.sqlite')}"
 
 db.init_app(app)
 
@@ -42,7 +42,10 @@ def home():
 
     books = query.all()
 
-    return render_template('home.html', books=books, sort_by=sort_by, search_query=search_query)
+    return render_template(
+        'home.html', books=books, sort_by=sort_by,
+        search_query=search_query
+        )
 
 
 @app.route('/add_author', methods=['GET', 'POST'])
@@ -52,14 +55,14 @@ def add_author():
         birth_date_str = request.form['birthdate']
         date_of_death_str = request.form['date_of_death']
 
-        # Feldprüfung
         if not name or not birth_date_str:
             flash("Please fill in all required fields.", "error")
             return render_template('add_author.html')
 
         try:
             birth_date = datetime.strptime(birth_date_str, '%Y-%m-%d').date()
-            date_of_death = datetime.strptime(date_of_death_str, '%Y-%m-%d').date() if date_of_death_str else None
+            date_of_death = datetime.strptime(date_of_death_str, '%Y-%m-%d').\
+                date() if date_of_death_str else None
 
             new_author = Author(
                 name=name,
@@ -69,12 +72,11 @@ def add_author():
             db.session.add(new_author)
             db.session.commit()
             flash("Author added successfully!", "success")
-            return redirect(url_for('add_author'))  # Sauberer Redirect
+            return redirect(url_for('add_author'))
         except Exception as e:
             db.session.rollback()
             flash(f"Error adding author: {e}", "error")
 
-    # Wenn GET oder Fehler, zeige einfach das Formular
     return render_template('add_author.html')
 
 
@@ -91,7 +93,8 @@ def delete_book(book_id):
         if not author.books:
             db.session.delete(author)
             db.session.commit()
-            flash(f"Book '{book.title}' and author '{author.name}' deleted successfully.", "success")
+            flash(f"Book '{book.title}' and author '{author.name}' \
+            deleted successfully.", "success")
         else:
             flash(f"Book '{book.title}' deleted successfully.", "success")
     except Exception as e:
@@ -129,8 +132,6 @@ def add_book():
 
     authors = Author.query.all()
     return render_template('add_book.html', authors=authors)
-
-
 
 
 if __name__ == '__main__':
