@@ -3,6 +3,7 @@ from flask_sqlalchemy import SQLAlchemy
 import os
 from data_models import db, Author, Book
 from datetime import datetime
+from sqlalchemy import or_
 
 app = Flask(__name__)
 
@@ -19,12 +20,29 @@ app.secret_key = "supersecretkey"
 
 @app.route('/', methods=['GET'])
 def home():
-    sort_by = request.args.get('sort', 'title')  # default sorting
+    sort_by = request.args.get('sort', 'title')
+    search_query = request.args.get('q', '').strip()
+
+    query = db.session.query(Book).join(Author)
+
+    # Apply search if provided
+    if search_query:
+        query = query.filter(
+            or_(
+                Book.title.ilike(f"%{search_query}%"),
+                Author.name.ilike(f"%{search_query}%")
+            )
+        )
+
+    # Apply sorting
     if sort_by == 'author':
-        books = db.session.query(Book).join(Author).order_by(Author.name).all()
+        query = query.order_by(Author.name)
     else:
-        books = Book.query.order_by(Book.title).all()
-    return render_template('home.html', books=books, sort_by=sort_by)
+        query = query.order_by(Book.title)
+
+    books = query.all()
+
+    return render_template('home.html', books=books, sort_by=sort_by, search_query=search_query)
 
 
 @app.route('/add_author', methods=['GET', 'POST'])

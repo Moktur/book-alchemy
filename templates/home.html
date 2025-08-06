@@ -1,29 +1,26 @@
-<!DOCTYPE html>
-<html lang="en">
+<h2>Library</h2>
 
-<head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-</head>
+<!-- Search Form -->
+<form method="GET" action="/">
+  <input type="text" name="q" placeholder="Search books or authors" value="{{ search_query }}">
+  <button type="submit">Search</button>
+  <input type="hidden" name="sort" value="{{ sort_by }}">
+</form>
 
-<body>
+<!-- Sorting Links -->
+<p>Sort by:
+  <a href="/?sort=title{% if search_query %}&q={{ search_query }}{% endif %}">Title</a> |
+  <a href="/?sort=author{% if search_query %}&q={{ search_query }}{% endif %}">Author</a>
+</p>
 
-  <h2>Library</h2>
-
-  <!-- Sorting Links -->
-  <p>Sort by:
-    <a href="/?sort=title">Title</a> |
-    <a href="/?sort=author">Author</a>
-  </p>
-
-  <!-- Book List -->
-  {% for book in books %}
-  <div>
-    <h3>{{ book.title }}</h3>
-    <p>Author: {{ book.author.name }}</p>
-  </div>
-  {% endfor %}
-
-</body>
-
-</html>
+<!-- Book List -->
+{% if books %}
+{% for book in books %}
+<div>
+  <h3>{{ book.title }}</h3>
+  <p>Author: {{ book.author.name }}</p>
+</div>
+{% endfor %}
+{% else %}
+<p>No books match your search.</p>
+{% endif %}
