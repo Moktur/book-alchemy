@@ -78,6 +78,29 @@ def add_author():
     return render_template('add_author.html')
 
 
+@app.route('/book/<int:book_id>/delete', methods=['POST'])
+def delete_book(book_id):
+    book = Book.query.get_or_404(book_id)
+    author = book.author  # Access the related author
+
+    try:
+        db.session.delete(book)
+        db.session.commit()
+
+        # Check if author has no other books left
+        if not author.books:
+            db.session.delete(author)
+            db.session.commit()
+            flash(f"Book '{book.title}' and author '{author.name}' deleted successfully.", "success")
+        else:
+            flash(f"Book '{book.title}' deleted successfully.", "success")
+    except Exception as e:
+        db.session.rollback()
+        flash(f"Error deleting book: {e}", "error")
+
+    return redirect(url_for('home'))
+
+
 @app.route('/add_book', methods=['GET', 'POST'])
 def add_book():
     if request.method == 'POST':
