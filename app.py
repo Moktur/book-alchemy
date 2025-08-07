@@ -51,7 +51,13 @@ def home():
 @app.route('/add_author', methods=['GET', 'POST'])
 def add_author():
     if request.method == 'POST':
+        # check if author exist:
         name = request.form['name']
+        existing_author = Author.query.filter_by(name=name).first()
+        if existing_author:
+            flash("Author already exists.", "error")
+            return render_template('add_author.html')
+
         birth_date_str = request.form['birthdate']
         date_of_death_str = request.form['date_of_death']
 
@@ -110,6 +116,7 @@ def add_book():
         title = request.form['title']
         publication_year = request.form['publication_year']
         author_id = request.form.get('author_id')
+        isbn = request.form['isbn']
 
         if not title or not publication_year or not author_id:
             flash("Please fill in all required fields.", "error")
@@ -119,7 +126,8 @@ def add_book():
             new_book = Book(
                 title=title,
                 publication_year=publication_year,
-                author_id=author_id
+                author_id=author_id,
+                isbn=isbn
             )
             db.session.add(new_book)
             db.session.commit()

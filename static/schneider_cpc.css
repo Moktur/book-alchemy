@@ -43,18 +43,60 @@ body {
     letter-spacing: 1px;
 }
 
+/* Navigation */
+.navigation {
+    text-align: center;
+    margin-bottom: 10px;
+    font-weight: bold;
+    text-transform: uppercase;
+}
+
+.navigation a {
+    color: #00ff00;
+    text-decoration: none;
+    margin: 0 5px;
+}
+
+.navigation a:hover {
+    color: #ff00ff;
+}
+
 /* Inhalt */
 .content {
     flex: 1;
     overflow-y: auto;
     color: #00ff00;
-    /* Grün */
     line-height: 1.4;
+}
+
+/* Flash-Messages Container */
+.flash-container {
+    margin-bottom: 10px;
+}
+
+.flash {
+    padding: 8px;
+    margin-bottom: 8px;
+    border: 2px solid #aa00aa;
+    background-color: #000000;
+    color: #00ff00;
+    font-weight: bold;
+    font-family: 'Courier New', monospace;
+    text-align: center;
+}
+
+.flash.success {
+    border-color: #00ff00;
+}
+
+.flash.error {
+    border-color: #ff0000;
 }
 
 /* Formulare */
 input[type="text"],
-input[type="number"] {
+input[type="number"],
+input[type="date"] {
     background-color: #000000;
     color: #00ff00;
     border: 2px solid #aa00aa;
@@ -63,6 +105,7 @@ input[type="number"] {
     width: 90%;
     margin-bottom: 10px;
     box-sizing: border-box;
+    font-family: 'Courier New', monospace;
 }
 
 button,
@@ -74,6 +117,7 @@ input[type="submit"] {
     font-size: 16px;
     cursor: pointer;
     text-transform: uppercase;
+    font-family: 'Courier New', monospace;
 }
 
 button:hover,
@@ -87,34 +131,41 @@ input[type="submit"]:hover {
     padding: 5px 0;
 }
 
-input[type="date"] {
-    appearance: none;
-    /* Entfernt natives Styling */
-    -webkit-appearance: none;
-    /* Für WebKit-Browser */
-    -moz-appearance: none;
-    /* Für Firefox */
-    background-color: var(--bg-color);
-    color: var(--text-color);
-    border: 2px solid var(--border-color);
-    padding: 4px;
-    font-family: monospace;
-    font-size: 14px;
-    width: 200px;
+/* Navigation */
+.navigation {
+    text-align: center;
+    padding: 10px;
+    font-family: 'Courier New', monospace;
+    color: #00ff00;
+    background-color: #000040;
+    border-top: 2px solid #aa00aa;
 }
 
-input[type="date"] {
-    appearance: none;
-    /* Entfernt natives Styling */
-    -webkit-appearance: none;
-    /* Für WebKit-Browser */
-    -moz-appearance: none;
-    /* Für Firefox */
-    background-color: var(--bg-color);
-    color: var(--text-color);
-    border: 2px solid var(--border-color);
-    padding: 4px;
-    font-family: monospace;
-    font-size: 14px;
-    width: 200px;
+.navigation a {
+    color: #00ff00;
+    text-decoration: none;
+    margin: 0 10px;
+}
+
+.navigation a:hover {
+    color: #ffffff;
+    background-color: #aa00aa;
+    padding: 2px 4px;
+}
+
+/* Flash-Nachrichten */
+.flash-messages {
+    list-style-type: none;
+    padding: 0;
+    margin-bottom: 10px;
+}
+
+.flash-messages li {
+    background-color: #aa00aa;
+    color: #ffffff;
+    padding: 5px;
+    margin-bottom: 5px;
+    border: 1px solid #000000;
+    font-weight: bold;
+    text-align: center;
 }

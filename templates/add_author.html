@@ -3,8 +3,6 @@
 
 <head>
   <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <meta http-equiv="X-UA-Compatible" content="ie=edge">
   <title>Add Author</title>
   <link rel="stylesheet" href="{{ url_for('static', filename='schneider_cpc.css') }}">
 </head>
@@ -14,11 +12,11 @@
     <div class="title-bar">Add Author</div>
     <div class="content">
 
-      {% with messages = get_flashed_messages() %}
+      {% with messages = get_flashed_messages(with_categories=true) %}
       {% if messages %}
       <ul>
-        {% for message in messages %}
-        <li>{{ message }}</li>
+        {% for category, message in messages %}
+        <li class="{{ category }}">{{ message }}</li>
         {% endfor %}
       </ul>
       {% endif %}
@@ -26,19 +24,26 @@
 
       <form action="/add_author" method="POST">
         <label for="name">Author Name:</label>
-        <input type="text" id="name" name="name" required><br><br>
+        <input type="text" id="name" name="name" required>
 
         <label for="birthdate">Birthdate:</label>
-        <input type="date" id="birthdate" name="birthdate" required><br><br>
+        <input type="date" id="birthdate" name="birthdate" required>
 
         <label for="date_of_death">Date of Death:</label>
-        <input type="date" id="date_of_death" name="date_of_death"><br><br>
+        <input type="date" id="date_of_death" name="date_of_death">
 
         <input type="submit" value="Add Author">
       </form>
 
     </div>
   </div>
+
+  <nav>
+    <a href="/">Home</a> |
+    <a href="/add_book">Add Book</a> |
+    <a href="/add_author">Add Author</a>
+  </nav>
+  <hr>
 </body>
 
 </html>
