@@ -46,7 +46,11 @@ body {
 /* Navigation */
 .navigation {
     text-align: center;
-    margin-bottom: 10px;
+    padding: 10px;
+    font-family: 'Courier New', monospace;
+    color: #00ff00;
+    background-color: #000040;
+    border-top: 2px solid #aa00aa;
     font-weight: bold;
     text-transform: uppercase;
 }
@@ -55,10 +59,13 @@ body {
     color: #00ff00;
     text-decoration: none;
     margin: 0 5px;
+    padding: 2px 4px;
+    transition: all 0.1s ease;
 }
 
 .navigation a:hover {
-    color: #ff00ff;
+    color: #ffffff;
+    background-color: #aa00aa;
 }
 
 /* Inhalt */
@@ -67,14 +74,38 @@ body {
     overflow-y: auto;
     color: #00ff00;
     line-height: 1.4;
+    padding-right: 5px;
+}
+
+/* Scrollbar styling for retro look */
+.content::-webkit-scrollbar {
+    width: 8px;
+}
+
+.content::-webkit-scrollbar-track {
+    background: #000040;
+    border: 1px solid #aa00aa;
+}
+
+.content::-webkit-scrollbar-thumb {
+    background: #aa00aa;
+    border: 1px solid #000000;
+}
+
+.content::-webkit-scrollbar-thumb:hover {
+    background: #ff00ff;
 }
 
 /* Flash-Messages Container */
-.flash-container {
-    margin-bottom: 10px;
+.flash-container,
+.flash-messages {
+    list-style-type: none;
+    padding: 0;
+    margin: 0 0 10px 0;
 }
 
-.flash {
+.flash,
+.flash-messages li {
     padding: 8px;
     margin-bottom: 8px;
     border: 2px solid #aa00aa;
@@ -83,89 +114,194 @@ body {
     font-weight: bold;
     font-family: 'Courier New', monospace;
     text-align: center;
+    text-transform: uppercase;
 }
 
-.flash.success {
+.flash.success,
+.flash-messages .success {
     border-color: #00ff00;
+    color: #00ff00;
 }
 
-.flash.error {
+.flash.error,
+.flash-messages .error {
     border-color: #ff0000;
+    color: #ff0000;
+}
+
+/* Form Labels */
+label {
+    display: block;
+    color: #00ff00;
+    font-weight: bold;
+    margin-bottom: 3px;
+    margin-top: 8px;
+    text-transform: uppercase;
+    font-size: 14px;
 }
 
 /* Formulare */
 input[type="text"],
 input[type="number"],
-input[type="date"] {
+input[type="date"],
+select {
     background-color: #000000;
     color: #00ff00;
     border: 2px solid #aa00aa;
-    padding: 3px;
+    padding: 5px;
     font-size: 16px;
-    width: 90%;
+    width: 100%;
     margin-bottom: 10px;
     box-sizing: border-box;
     font-family: 'Courier New', monospace;
 }
 
+/* Select dropdown styling */
+select {
+    cursor: pointer;
+    appearance: none;
+    background-image: linear-gradient(45deg, transparent 50%, #00ff00 50%),
+        linear-gradient(135deg, #00ff00 50%, transparent 50%);
+    background-position: calc(100% - 15px) calc(1em + 2px),
+        calc(100% - 10px) calc(1em + 2px);
+    background-size: 5px 5px, 5px 5px;
+    background-repeat: no-repeat;
+    padding-right: 25px;
+}
+
+select:focus {
+    outline: none;
+    border-color: #ff00ff;
+    box-shadow: 0 0 5px #aa00aa;
+}
+
+/* Input focus states */
+input[type="text"]:focus,
+input[type="number"]:focus,
+input[type="date"]:focus {
+    outline: none;
+    border-color: #ff00ff;
+    box-shadow: 0 0 5px #aa00aa;
+}
+
+/* Buttons */
 button,
 input[type="submit"] {
     background-color: #aa00aa;
     color: #ffffff;
     border: 2px solid #000000;
-    padding: 5px 10px;
+    padding: 8px 15px;
     font-size: 16px;
     cursor: pointer;
     text-transform: uppercase;
     font-family: 'Courier New', monospace;
+    font-weight: bold;
+    margin-top: 10px;
+    width: 100%;
+    transition: all 0.1s ease;
 }
 
 button:hover,
 input[type="submit"]:hover {
     background-color: #ff00ff;
+    box-shadow: 0 0 10px #aa00aa;
+}
+
+button:active,
+input[type="submit"]:active {
+    background-color: #880088;
+    transform: translateY(1px);
 }
 
 /* Buchliste */
 .book-entry {
     border-bottom: 1px solid #aa00aa;
-    padding: 5px 0;
+    padding: 8px 0;
+    margin-bottom: 5px;
 }
 
-/* Navigation */
-.navigation {
-    text-align: center;
-    padding: 10px;
-    font-family: 'Courier New', monospace;
+.book-entry:last-child {
+    border-bottom: none;
+}
+
+.book-title {
     color: #00ff00;
-    background-color: #000040;
-    border-top: 2px solid #aa00aa;
+    font-weight: bold;
+    text-transform: uppercase;
 }
 
-.navigation a {
+.book-author {
+    color: #ffffff;
+    font-size: 14px;
+}
+
+.book-year {
+    color: #aa00aa;
+    font-size: 14px;
+}
+
+/* Search and Sort Controls */
+.controls {
+    margin-bottom: 15px;
+    padding: 10px;
+    border: 2px solid #aa00aa;
+    background-color: #000000;
+}
+
+.search-box {
+    width: 100%;
+    margin-bottom: 8px;
+}
+
+.sort-controls {
+    text-align: center;
+}
+
+.sort-controls a {
     color: #00ff00;
     text-decoration: none;
-    margin: 0 10px;
+    margin: 0 5px;
+    padding: 2px 5px;
+    border: 1px solid #aa00aa;
+    background-color: #000040;
+    font-size: 12px;
+    text-transform: uppercase;
 }
 
-.navigation a:hover {
-    color: #ffffff;
-    background-color: #aa00aa;
-    padding: 2px 4px;
-}
-
-/* Flash-Nachrichten */
-.flash-messages {
-    list-style-type: none;
-    padding: 0;
-    margin-bottom: 10px;
-}
-
-.flash-messages li {
+.sort-controls a:hover,
+.sort-controls a.active {
     background-color: #aa00aa;
     color: #ffffff;
-    padding: 5px;
-    margin-bottom: 5px;
-    border: 1px solid #000000;
-    font-weight: bold;
-    text-align: center;
+}
+
+/* Delete button styling */
+.delete-btn {
+    background-color: #ff0000;
+    color: #ffffff;
+    border: 2px solid #000000;
+    padding: 3px 8px;
+    font-size: 12px;
+    cursor: pointer;
+    text-transform: uppercase;
+    font-family: 'Courier New', monospace;
+    margin-left: 10px;
+    width: auto;
+    display: inline-block;
+}
+
+.delete-btn:hover {
+    background-color: #ff4444;
+    box-shadow: 0 0 8px #ff0000;
+}
+
+/* Responsive adjustments */
+@media (max-width: 600px) {
+    .window {
+        width: 95vw;
+        height: 95vh;
+    }
+
+    body {
+        font-size: 16px;
+    }
 }
