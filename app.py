@@ -135,7 +135,7 @@ def add_book():
             return redirect(url_for('add_book'))
         except Exception as e:
             db.session.rollback()
-            flash(f"Error adding book: {e}", "error")
+            flash(f"Error adding book: Is ISBN already used?", "error")
             return render_template('add_book.html', authors=Author.query.all())
 
     authors = Author.query.all()

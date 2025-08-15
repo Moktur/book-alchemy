@@ -22,7 +22,7 @@ class Book(db.Model):
     __tablename__ = 'books'
 
     id = db.Column(db.Integer, primary_key=True, autoincrement=True)
-    isbn = db.Column(db.String(20), nullable=True)
+    isbn = db.Column(db.String(20), nullable=True, unique=True)
     title = db.Column(db.String(100), nullable=False)
     publication_year = db.Column(db.Integer)
 
